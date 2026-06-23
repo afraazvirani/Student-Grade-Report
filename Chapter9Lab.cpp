@@ -38,7 +38,6 @@ int main()
     ofstream outFile;
     string inFileName, outFileName;
     
-    // TODO: Prompt for input file, check for success.
     cout << "Enter input file name: ";
     cin >> inFileName;
 
@@ -49,7 +48,7 @@ int main()
         cout << "Error: Could not open input file." << endl;
         return 1;
     }
-    // TODO: Prompt for output file, check for success.
+
     cout << "Enter output file name: ";
     cin >> outFileName;
 
@@ -58,10 +57,11 @@ int main()
     if (!outFile)
     {
         cout << "Error: Could not open output file." << endl;
+        inFile.close();
         return 1;
     }
     
-    // TODO: Call structural processing functions.
+
     readStudentsData(inFile, studentRoster, CLASS_SIZE);
 
     assignGrades(studentRoster, CLASS_SIZE);
@@ -72,14 +72,16 @@ int main()
 
     printHighestScorers(outFile, studentRoster, CLASS_SIZE, highestScore);
     
-    // TODO: Close files.
+
     inFile.close();
     outFile.close();
+
+    cout << "Grade report has been created successfully." << endl;
     
     return 0;
 }
  
-// TODO: Implement readStudentsData
+
 void readStudentsData(ifstream& inFile, studentType roster[], int size)
 {
     for (int i = 0; i < size; i = i + 1)
@@ -90,7 +92,7 @@ void readStudentsData(ifstream& inFile, studentType roster[], int size)
     }
 }
 
-// TODO: Implement assignGrades
+
 void assignGrades(studentType roster[], int size)
 {
     for (int i = 0; i < size; i = i + 1)
@@ -122,7 +124,7 @@ void assignGrades(studentType roster[], int size)
     }
 }
 
-// TODO: Implement findHighestScore
+
 int findHighestScore(const studentType roster[], int size)
 {
     int highestScore = roster[0].testScore;
@@ -138,7 +140,7 @@ int findHighestScore(const studentType roster[], int size)
     return highestScore;
 }
 
-// TODO: Implement printHighestScorers
+
 void printHighestScorers(ostream& out, const studentType roster[], int size, int highestScore)
 {
     out << endl;
@@ -156,18 +158,18 @@ void printHighestScorers(ostream& out, const studentType roster[], int size, int
     }
 }
 
-// TODO: Implement printGradeReport
+
 void printGradeReport(ostream& out, const studentType roster[], int size)
 {
-    out << "---------------------------------------------" << endl;
-    out << "          ANNUAL CLASS GRADE REPORT" << endl;
-    out << "---------------------------------------------" << endl;
+    out << "-------------------------------------------" << endl;
+    out << "         ANNUAL CLASS GRADE REPORT" << endl;
+    out << "-------------------------------------------" << endl;
 
     out << left << setw(25) << "Student Name";
     out << right << setw(10) << "Test Score";
-    out << setw(10) << "Grade" << endl;
+    out << setw(8) << "Grade" << endl;
 
-    out << "---------------------------------------------" << endl;
+    out << "-------------------------------------------" << endl;
 
     for (int i = 0; i < size; i = i + 1)
     {
@@ -175,8 +177,8 @@ void printGradeReport(ostream& out, const studentType roster[], int size)
 
         out << left << setw(25) << fullName;
         out << right << setw(6) << roster[i].testScore;
-        out << setw(12) << roster[i].grade << endl;
+        out << setw(10) << roster[i].grade << endl;
     }
 
-    out << "---------------------------------------------" << endl;
+    out << "-------------------------------------------" << endl;
 }
